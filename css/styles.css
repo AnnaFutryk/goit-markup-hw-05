@@ -52,6 +52,7 @@ img {
     --accent-ocean-txt-color: #404BBF;
     --descr-ligh-txt-color: #E7E9FC;
     --iris-brand-txt-color: #4D5AE5;
+    --light-txt-color: #F4F4FD;
     --white-txt-color: #FFFFFF;
     /* Background color */
     --dark-bcg-color: #2E2F42;
@@ -62,10 +63,13 @@ img {
     --light-slate-color: #8E8F99;
     --footer-gray-color: rgba(255, 255, 255, 0.1);
     --footer-green-color: #31D0AA;
+    --modal-bcg-color: #FCFCFC;
+    --btn-light-bcg-color: #E7E9FC;
     /* Others */
     --radius: 4px;
     --indent: 24px;
     --items: 3;
+    --transition-dur-func: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -435,6 +439,10 @@ body {
     box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
 }
 
+.portfolio-list {
+    row-gap: 48px;
+}
+
 .portfolio-wrapper {
     padding-top: 32px;
     padding-bottom: 32px;
@@ -446,6 +454,10 @@ body {
     box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08);
 }
 
+.portfolio-link {
+    display: block;
+}
+
 .portfolio-link:hover,
 .portfolio-link:focus {
     display: block;
@@ -454,8 +466,30 @@ body {
     box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
 }
 
-.portfolio-list {
-    row-gap: 48px;
+.portfolio-img-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    transform: translate(0, 100%);
+    transition: transform var(--transition-dur-func);
+
+    padding: 40px 32px;
+    background-color: var(--iris-bcg-color);
+    color: var(--light-txt-color);
+    
+}
+
+.portfolio-link:hover .overlay,
+.portfolio-link:focus .overlay {
+    transform: translate(0, 0);
 }
 
 /* ==========/Portfolio============= */
@@ -517,5 +551,73 @@ body {
 
 /* ============footer============ */
 
+/* ===============Modal window============ */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(46, 47, 66, 0.4);
+    
+    transition: opacity var(--transition-dur-func), visibility var(--transition-dur-func);
+}
 
+.backdrop.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
 
+.backdrop.is-hidden .modal {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 408px;
+    height: 576px;
+    background-color: var(--modal-bcg-color);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform var(--transition-dur-func);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    background-color: var(--btn-light-bcg-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+
+    transition: background-color var(--transition-dur-func);
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    background-color: var(--ocean-bcg-color);
+    border: none;
+    color: var(--white-txt-color);
+}
+
+.modal-close-btn-icon {
+    fill: currentColor;
+
+    transition: fill var(--transition-dur-func);
+}
+
+/* ===============/Modal window============ */
